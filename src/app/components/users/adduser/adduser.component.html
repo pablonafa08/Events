@@ -1,0 +1,63 @@
+<div class="card" style="box-shadow: -4px 5px rgb(237,234,245,0.5);">
+    <div class="card-body">
+        <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="d-flex justify-content-center">
+                <h4>INDQ Events</h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <label for="">Registro</label>
+            </div>
+            <label for="" style="float:right; color:red;">(*) Campos requeridos para activar el botón</label>
+            <br><br>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for=""><strong><strong style="color:red;">*</strong>Nombre(s)</strong></label>
+                    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Ingresa tu Nombre" (keypress)="onlyText($event);" #fisrtname="ngModel" [(ngModel)]="user.firstName">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for=""><strong><strong style="color:red;">*</strong>Apellido(s)</strong></label>
+                    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Ingresa tu apellido" (keypress)="onlyText($event);" #lastname="ngModel" [(ngModel)]="user.lastName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for=""><strong><strong style="color:red;">*</strong>Correo</strong></label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu correo electrónico  Ejemplo: correo@dominio.com" #email="ngModel" [(ngModel)]="user.email">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for=""><strong><strong style="color:red;">*</strong>Género</strong></label>
+                    <div class="form-control-plaintext">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="radio" name="gender" value="male" #gender="ngModel" [(ngModel)]="user.gender"> Masculino
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="radio" name="gender" value="female" #gender="ngModel" [(ngModel)]="user.gender"> Femenino
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for=""><strong><strong style="color:red;">*</strong>Contraseña</strong></label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Ingresa tu contraseña de mínimo 8 caracteres" #password="ngModel" [(ngModel)]="user.password">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for=""><strong><strong style="color:red;">*</strong>Confirmar Contraseña</strong></label>
+                    <input type="password" name="password2" id="password2" class="form-control" placeholder="Ingresa nuevamente tu contraseña" #password2="ngModel" [(ngModel)]="pass2">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" *ngIf="user.firstName && user.lastName && user.gender && user.email && pass2;
+                    else desactivado"><i class="fas fa-plus"></i> Agregar</button>
+                <ng-template #desactivado>
+                    <button type="submit" class="btn btn-primary" disabled><i class="fas fa-plus"></i> Agregar</button>
+                </ng-template>
+            </div><br>
+            <div class="d-flex justify-content-center links">
+                <a routerLink="/login">¿Ya eres miembro? Inicia sesión</a>
+            </div>
+        </form>
+    </div>
+</div>

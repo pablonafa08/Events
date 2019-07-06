@@ -1,0 +1,73 @@
+<div class="row d-flex justify-content-between">
+    <div class="input-group col-lg-5">
+        <div class="input-group-prepend">
+            <div class="input-group-text" style="background: #60a3bc; color: white;"><i class="fas fa-search"></i></div>
+        </div>
+        <input type="text" class="form-control" name="searchEvent" (keyup)="getEventsByTitle();" [(ngModel)]="search" placeholder="Buscar por Título">
+    </div>
+    <div class="input-group col-lg-5">
+        <div class="input-group-prepend">
+            <div class="input-group-text" style="background: #60a3bc; color: white;"><i class="fas fa-search"></i></div>
+        </div>
+        <input class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="getEventsByAddress($event)" name="address" id="address">
+    </div>
+</div><br>
+
+<div class="form-inline">
+    <div *ngFor="let pag of pages">
+        <button *ngIf="pag==page" class="btn btn-sm btn-danger" (click)="changePage(pag);">{{pag}}</button>
+        <button *ngIf="pag!=page" class="btn btn-sm btn-primary" (click)="changePage(pag);">{{pag}}</button>
+    </div>
+</div>
+
+<div *ngFor="let event of events">
+    <div class="d-flex justify-content-center">
+        <div class="card" style="box-shadow: -4px 5px rgb(237,234,245,0.5); width: 75%;">
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    <img src="{{url+'images/'+event.image}}" style="width: 100%; height: 35%;">
+                </div><br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4 class="d-flex justify-content-center"><strong>{{event.title}}</strong></h4><br>
+                        <div class="row">
+                            <div class="col-lg-3 d-flex justify-content-center">
+                                <img src="../../../assets/calendar.png" style="width:100%; height: 100%;">
+                            </div>
+                            <div class="col-lg-8">
+                                <label for=""><strong>Fecha del Evento:</strong></label><br>
+                                <label for="">{{event.date | date: 'yyyy/MM/dd hh:mm a'}}</label>
+                            </div>
+                        </div>
+                        <br>
+                        <p>{{event.description}}</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="d-flex justify-content-center">
+                            <label *ngIf="event.attendances==1"><strong>{{event.attendances}} persona asistirá</strong></label>
+                            <label *ngIf="event.attendances!=1"><strong>{{event.attendances}} personas asistirán</strong></label>
+                        </div>
+                        <agm-map [latitude]="event.location[1]" [longitude]="event.location[0]" [zoom]="16">
+                            <agm-marker [latitude]="event.location[1]" [longitude]="event.location[0]"></agm-marker>
+                        </agm-map><br>
+                        <div class="d-flex justify-content-center">
+                            <button *ngIf="!event.willYouAttend" class="btn btn-primary" style="width: 80%;" (click)="attend(event.id);"><i class="fas fa-check"></i> Asistiré</button>
+                            <button *ngIf="event.willYouAttend" class="btn btn-danger" style="width: 80%;" (click)="noAttend(event.id);"><i class="fas fa-times"></i> No Asistiré</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+</div>
+
+<div class="form-inline">
+    <div *ngFor="let pag of pages">
+        <button *ngIf="pag==page" class="btn btn-sm btn-danger" (click)="changePage(pag);">{{pag}}</button>
+        <button *ngIf="pag!=page" class="btn btn-sm btn-primary" (click)="changePage(pag);">{{pag}}</button>
+    </div>
+</div><br>

@@ -1,0 +1,43 @@
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h4>INDQ Events</h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <label for="">Iniciar Sesion</label>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+                <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                    <!-- <div class="alert alert-danger" *ngIf="message != ''">{{message}}</div> -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Correo Electrónico" #email="ngModel" [(ngModel)]="user.email">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" #password="ngModel" [(ngModel)]="user.password">
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <button type="submit" class="btn btn-primary" *ngIf="user.email && user.password;
+                        else desactivado"><i class="fas fa-sign-in-alt"></i> Acceder</button>
+                        <ng-template #desactivado>
+                            <button type="submit" class="btn btn-primary" disabled><i class="fas fa-sign-in-alt"></i> Acceder</button>
+                        </ng-template>
+                    </div>
+                </form>
+            </div>
+            <div class="mt-4">
+
+                <div class="d-flex justify-content-center links">
+                    <a routerLink="/user/add">¿No tienes cuenta? Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
